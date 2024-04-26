@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {ScrollView, StyleSheet, Text, useColorScheme, View} from "react-native";
+import {ScrollView, StyleSheet, Text, useColorScheme, View, Alert, Button} from "react-native";
 
 import {Colors} from "react-native/Libraries/NewAppScreen";
 
@@ -23,23 +23,19 @@ function App(): ReactElement {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const alerta = () => {
+    Alert.alert('Title', 'Message')
+  }
   const getName = (name: string): string => {
     return "Oi " + name;
   };
   return (
     <ScrollView style={backgroundStyle} id={"welcome"}>
       <Text>Bem-Vindo ao mobile sort {getName("Cauan")}!</Text>
-      <ScrollTrigger />
+      <Button testID={'Botao'} title={'2-Button Alert'} onPress={alerta} />
     </ScrollView>
   );
 }
 
-const ScrollTrigger = () => {
-  return (
-    <View style={styles.scrollTrigger}>
-      <Text>Im centered</Text>
-    </View>
-  );
-};
 
 export default App;
