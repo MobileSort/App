@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "../screens/home.tsx";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Settings from "../screens/settings.tsx";
+import ListFiles from "../screens/listFiles/listFiles.tsx";
 
 function Router(){
   const Tab = createBottomTabNavigator();
@@ -18,6 +19,11 @@ function Router(){
           name="Settings"
           component={Settings}
           options={{title: 'Settings'}}
+        />
+        <Tab.Screen
+          name="My Files"
+          component={ListFiles}
+          options={{title: 'My Files'}}
         />
       </Tab.Navigator>
     </NavigationContainer>
