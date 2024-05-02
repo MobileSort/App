@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyleSheet, View } from "react-native";
-import Router from "./components/router.tsx";
+import Router from "./src/components/router.tsx";
 
 function App(): ReactElement {
 
