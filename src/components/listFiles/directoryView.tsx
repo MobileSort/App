@@ -10,7 +10,7 @@ interface Props {
 }
 
 function DirectoryView({ path, setPath }: Props) {
-  const {actions} = useNavigation();
+  const { actions, history } = useNavigation();
 
   const [filesOnDirectory, setFilesOnDirectory] = useState<ReadDirItem[]>([]);
 
@@ -49,6 +49,19 @@ function DirectoryView({ path, setPath }: Props) {
   function RequestFiles() {
     readDir(path).then((directories) => {
       setFilesOnDirectory(directories);
+    }).catch(() => {
+      Alert.alert("Error", "The app couldn't read this folder", [
+        {
+          text: "Ok", onPress: () => {
+            if(history.length <= 1){
+              return;
+            }
+            const lastDirectory = history.slice(-2)[0]
+            actions.pop();
+            setPath(lastDirectory)
+          }
+        }
+      ]);
     });
   }
 
