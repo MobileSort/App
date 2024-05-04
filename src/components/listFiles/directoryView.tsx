@@ -3,6 +3,7 @@ import {Alert, Linking, Permission, PermissionsAndroid, ScrollView, Text} from "
 import { ExternalStorageDirectoryPath, readDir, ReadDirItem } from "react-native-fs";
 import FileView from "../../utils/fileView.tsx";
 import { useNavigation } from "../../providers/navigationProvider.tsx";
+import ModalAddDirectory from "../modalAddDirectory"
 
 interface Props {
   path: string,
@@ -10,7 +11,7 @@ interface Props {
 }
 
 function DirectoryView({ path, setPath }: Props) {
-  const {actions} = useNavigation();
+  const { actions, history } = useNavigation();
 
   const [filesOnDirectory, setFilesOnDirectory] = useState<ReadDirItem[]>([]);
 
@@ -47,6 +48,19 @@ function DirectoryView({ path, setPath }: Props) {
   function RequestFiles() {
     readDir(path).then((directories) => {
       setFilesOnDirectory(directories);
+    }).catch(() => {
+      Alert.alert("Error", "The app couldn't read this folder", [
+        {
+          text: "Ok", onPress: () => {
+            if(history.length <= 1){
+              return;
+            }
+            const lastDirectory = history.slice(-2)[0]
+            actions.pop();
+            setPath(lastDirectory)
+          }
+        }
+      ]);
     });
   }
 
@@ -58,7 +72,12 @@ function DirectoryView({ path, setPath }: Props) {
   return (
     <Fragment>
       <Text>{directoryName}</Text>
-      <ScrollView>{
+      <ScrollView>
+       <ModalAddDirectory
+           path={path}
+           onClick={() => RequestFiles()}
+       />
+      {
         filesOnDirectory.map((item, index) =>
           <FileView
             key={index}
@@ -66,7 +85,8 @@ function DirectoryView({ path, setPath }: Props) {
             onClick={() => navigateToFolder(item.path)}
           />
         )
-      }</ScrollView>
+      }
+     </ScrollView>
     </Fragment>
   );
 }
