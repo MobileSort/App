@@ -1,5 +1,5 @@
 import { Dispatch, Fragment, SetStateAction, useContext, useEffect, useState } from "react";
-import { Alert, Linking, Permission, PermissionsAndroid, Text } from "react-native";
+import {Alert, Linking, Permission, PermissionsAndroid, ScrollView, Text} from "react-native";
 import { ExternalStorageDirectoryPath, readDir, ReadDirItem } from "react-native-fs";
 import FileView from "../../utils/fileView.tsx";
 import { useNavigation } from "../../providers/navigationProvider.tsx";
@@ -14,7 +14,6 @@ function DirectoryView({ path, setPath }: Props) {
 
   const [filesOnDirectory, setFilesOnDirectory] = useState<ReadDirItem[]>([]);
 
-
   const directoryLastIndex = path.split("/").slice(-1);
   const directoryName = directoryLastIndex[0] == "0" ? "Root" : directoryLastIndex[0];
 
@@ -25,7 +24,6 @@ function DirectoryView({ path, setPath }: Props) {
   useEffect(() => {
     RequestFiles();
   }, [path]);
-
 
   function RequestAccessFiles() {
     const permissions = PermissionsAndroid.PERMISSIONS;
@@ -60,7 +58,7 @@ function DirectoryView({ path, setPath }: Props) {
   return (
     <Fragment>
       <Text>{directoryName}</Text>
-      {
+      <ScrollView>{
         filesOnDirectory.map((item, index) =>
           <FileView
             key={index}
@@ -68,10 +66,9 @@ function DirectoryView({ path, setPath }: Props) {
             onClick={() => navigateToFolder(item.path)}
           />
         )
-      }
+      }</ScrollView>
     </Fragment>
   );
 }
-
 
 export default DirectoryView;
