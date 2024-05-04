@@ -3,6 +3,7 @@ import { Alert, Linking, Permission, PermissionsAndroid, Text } from "react-nati
 import { ExternalStorageDirectoryPath, readDir, ReadDirItem } from "react-native-fs";
 import FileView from "../../utils/fileView.tsx";
 import { useNavigation } from "../../providers/navigationProvider.tsx";
+import ModalAddDirectory from "../modalAddDirectory"
 
 interface Props {
   path: string,
@@ -73,6 +74,10 @@ function DirectoryView({ path, setPath }: Props) {
   return (
     <Fragment>
       <Text>{directoryName}</Text>
+       <ModalAddDirectory
+           path={path}
+           onClick={() => RequestFiles()}
+       />
       {
         filesOnDirectory.map((item, index) =>
           <FileView
