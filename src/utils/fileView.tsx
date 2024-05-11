@@ -24,6 +24,7 @@ function FileView({ Directory, onClick }: Props) {
       <Button onPress={() => Delete()}  title={"Deletar"}/>
     </View>
   );
+
 }
 
 
