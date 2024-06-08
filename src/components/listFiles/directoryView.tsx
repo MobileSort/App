@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useContext, useEffect, useState } from "react";
 import {Alert, Linking, Permission, PermissionsAndroid, ScrollView, Text} from "react-native";
 import { ExternalStorageDirectoryPath, readDir, ReadDirItem } from "react-native-fs";
-import FileView from "../../utils/fileView.tsx";
+import FileView from "./fileView.tsx";
 import { useNavigation } from "../../providers/navigationProvider.tsx";
 import ModalAddDirectory from "../modalAddDirectory"
 

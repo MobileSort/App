@@ -8,8 +8,6 @@ interface Props {
 
 function FileView({ Directory, onClick }: Props) {
   function Delete(){
-      console.log({Directory})
-      debugger;
       unlink(Directory.path)
           .then(() => {
               console.log('Directory Deleted')

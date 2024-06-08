@@ -11,6 +11,11 @@ function Router(){
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
+          name="Devices"
+          component={Home}
+          options={{title: 'Devices'}}
+        />
+        <Tab.Screen
           name="Home"
           component={Home}
           options={{title: 'Welcome'}}

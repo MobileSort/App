@@ -1,8 +1,12 @@
-import React, { ReactElement } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { ReactElement, useEffect } from "react";
+import { NativeModules, StyleSheet, View } from "react-native";
 import Router from "./src/components/router.tsx";
+import requestPermissions from "./src/utils/permissions/requestPermissions.ts";
 
-function App(): ReactElement {
+const App = (): ReactElement => {
+  useEffect(() => {
+    Promise.all(requestPermissions()) ;
+  }, []);
 
   return (
     <View style={styles.container}>
